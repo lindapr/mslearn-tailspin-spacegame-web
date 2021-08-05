@@ -45,7 +45,12 @@ steps:
 - template: template/build.yml
   parameters:
     buildConfiguration: 'Release'
-
+- task: dependency-check-build-task@6
+  inputs:
+    projectName: 'Dependency Checker'
+    scanPath: '**/*.csproj'
+    format: 'HTML, CSV, JSON'
+    failOnCVSS: '1'
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
   condition: succeeded()
